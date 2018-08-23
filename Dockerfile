@@ -16,9 +16,13 @@ RUN apt-get install -y \
     unzip \
   && rm -r /var/lib/apt/lists/*
 
-## Enable mysqli and pdo extension in php.ini
-RUN docker-php-ext-install mysqli && \
-    docker-php-ext-install pdo_mysql
+## Mongo
+RUN pecl install mongodb \
+    && docker-php-ext-enable mongodb
+    
+## Mongo
+#RUN pecl install mongodb \
+#    && echo "extension=mongodb.so" > /usr/local/etc/php/conf.d/ext-mongodb.ini 
 
 # Composer
 RUN curl -sS https://getcomposer.org/installer | php
